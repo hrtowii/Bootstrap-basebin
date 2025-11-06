@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/ibarahime/dev/Bootstrap/basebin/hooks/launchdhook/jitter/.theos/obj/debug/arm64/jitter'
+relocations:     []
+...

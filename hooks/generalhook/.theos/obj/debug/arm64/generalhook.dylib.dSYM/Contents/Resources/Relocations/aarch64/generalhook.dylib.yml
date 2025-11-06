@@ -1,0 +1,68 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/ibarahime/dev/Bootstrap/basebin/hooks/generalhook/.theos/obj/debug/arm64/generalhook.dylib'
+relocations:
+  - { offset: 0x1E, size: 0x8, addend: 0x0, symName: _is_jbrand_value, symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x5C }
+  - { offset: 0x4B, size: 0x8, addend: 0x0, symName: _is_jbrand_value, symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x5C }
+  - { offset: 0x81, size: 0x8, addend: 0x0, symName: _is_jbroot_name, symObjAddr: 0x5C, symBinAddr: 0x405C, symSize: 0xC4 }
+  - { offset: 0xC5, size: 0x8, addend: 0x0, symName: _find_jbroot, symObjAddr: 0x120, symBinAddr: 0x4120, symSize: 0x288 }
+  - { offset: 0x137, size: 0x8, addend: 0x0, symName: _jbroot, symObjAddr: 0x3A8, symBinAddr: 0x43A8, symSize: 0x88 }
+  - { offset: 0x238, size: 0x8, addend: 0x0, symName: '-[NSBundle(Loaded) isLoaded]', symObjAddr: 0x0, symBinAddr: 0x4430, symSize: 0x1C }
+  - { offset: 0x251, size: 0x8, addend: 0x0, symName: _gFullyDebugged, symObjAddr: 0x2B29, symBinAddr: 0xC118, symSize: 0x0 }
+  - { offset: 0x27B, size: 0x8, addend: 0x0, symName: _JB_SandboxExtensions, symObjAddr: 0x2B30, symBinAddr: 0xC120, symSize: 0x0 }
+  - { offset: 0x2B8, size: 0x8, addend: 0x0, symName: '-[NSBundle(Loaded) isLoaded]', symObjAddr: 0x0, symBinAddr: 0x4430, symSize: 0x1C }
+  - { offset: 0x2EE, size: 0x8, addend: 0x0, symName: _csops_hook, symObjAddr: 0x1C, symBinAddr: 0x444C, symSize: 0xF0 }
+  - { offset: 0x36A, size: 0x8, addend: 0x0, symName: _csops_audittoken_hook, symObjAddr: 0x10C, symBinAddr: 0x453C, symSize: 0xFC }
+  - { offset: 0x3F4, size: 0x8, addend: 0x0, symName: _setupAppBundle, symObjAddr: 0x208, symBinAddr: 0x4638, symSize: 0x280 }
+  - { offset: 0x442, size: 0x8, addend: 0x0, symName: _overwriteMainNSBundle, symObjAddr: 0x488, symBinAddr: 0x48B8, symSize: 0x1E0 }
+  - { offset: 0x4F2, size: 0x8, addend: 0x0, symName: _applySandboxExtensions, symObjAddr: 0x668, symBinAddr: 0x4A98, symSize: 0x98 }
+  - { offset: 0x532, size: 0x8, addend: 0x0, symName: _init, symObjAddr: 0x700, symBinAddr: 0x4B30, symSize: 0x200 }
+  - { offset: 0x5BC, size: 0x8, addend: 0x0, symName: _overwriteMainCFBundle, symObjAddr: 0x900, symBinAddr: 0x4D30, symSize: 0xD4 }
+  - { offset: 0xBCA, size: 0x8, addend: 0x0, symName: ___assert_rtn, symObjAddr: 0x0, symBinAddr: 0x4E04, symSize: 0x60 }
+  - { offset: 0xBD7, size: 0x8, addend: 0x0, symName: _LCHomePath, symObjAddr: 0xC0, symBinAddr: 0x4EC4, symSize: 0xAC }
+  - { offset: 0xBFC, size: 0x8, addend: 0x0, symName: _LCHomePath.path, symObjAddr: 0xF90, symBinAddr: 0xC128, symSize: 0x0 }
+  - { offset: 0xC50, size: 0x8, addend: 0x0, symName: ___assert_rtn, symObjAddr: 0x0, symBinAddr: 0x4E04, symSize: 0x60 }
+  - { offset: 0xC9E, size: 0x8, addend: 0x0, symName: _aarch64_get_tbnz_jump_address, symObjAddr: 0x60, symBinAddr: 0x4E64, symSize: 0x60 }
+  - { offset: 0xCE2, size: 0x8, addend: 0x0, symName: _aarch64_emulate_adrp, symObjAddr: 0x16C, symBinAddr: 0x4F70, symSize: 0xA0 }
+  - { offset: 0xD34, size: 0x8, addend: 0x0, symName: _aarch64_emulate_add_imm, symObjAddr: 0x20C, symBinAddr: 0x5010, symSize: 0x100 }
+  - { offset: 0xDA2, size: 0x8, addend: 0x0, symName: _aarch64_emulate_adrp_add, symObjAddr: 0x30C, symBinAddr: 0x5110, symSize: 0xA4 }
+  - { offset: 0xE1E, size: 0x8, addend: 0x0, symName: _aarch64_emulate_adrp_ldr, symObjAddr: 0x3B0, symBinAddr: 0x51B4, symSize: 0xBC }
+  - { offset: 0xEDE, size: 0x8, addend: 0x0, symName: _xpaci, symObjAddr: 0x0, symBinAddr: 0x5270, symSize: 0x54 }
+  - { offset: 0xF43, size: 0x8, addend: 0x0, symName: _xpaci, symObjAddr: 0x0, symBinAddr: 0x5270, symSize: 0x54 }
+  - { offset: 0xF6B, size: 0x8, addend: 0x0, symName: ___xpaci, symObjAddr: 0x54, symBinAddr: 0x52C4, symSize: 0xC }
+  - { offset: 0xF84, size: 0x8, addend: 0x0, symName: _movk, symObjAddr: 0x60, symBinAddr: 0x52D0, symSize: 0xB4 }
+  - { offset: 0x1000, size: 0x8, addend: 0x0, symName: _br, symObjAddr: 0x114, symBinAddr: 0x5384, symSize: 0x34 }
+  - { offset: 0x1044, size: 0x8, addend: 0x0, symName: _litehook_vm_protect, symObjAddr: 0x148, symBinAddr: 0x53B8, symSize: 0x10 }
+  - { offset: 0x105D, size: 0x8, addend: 0x0, symName: _litehook_unprotect, symObjAddr: 0x158, symBinAddr: 0x53C8, symSize: 0x40 }
+  - { offset: 0x1093, size: 0x8, addend: 0x0, symName: _litehook_protect, symObjAddr: 0x198, symBinAddr: 0x5408, symSize: 0x40 }
+  - { offset: 0x10C9, size: 0x8, addend: 0x0, symName: _litehook_hook_function, symObjAddr: 0x1D8, symBinAddr: 0x5448, symSize: 0x154 }
+  - { offset: 0x1195, size: 0x8, addend: 0x0, symName: _jbclient_xpc_set_custom_port, symObjAddr: 0x0, symBinAddr: 0x559C, symSize: 0x54 }
+  - { offset: 0x11AE, size: 0x8, addend: 0x0, symName: _gJBServerCustomPort, symObjAddr: 0x40E4, symBinAddr: 0xC11C, symSize: 0x0 }
+  - { offset: 0x11F8, size: 0x8, addend: 0x0, symName: _jbclient_get_jbroot, symObjAddr: 0x2A4, symBinAddr: 0x5840, symSize: 0x84 }
+  - { offset: 0x121D, size: 0x8, addend: 0x0, symName: _jbclient_get_jbroot.rootPath, symObjAddr: 0x40E8, symBinAddr: 0xC130, symSize: 0x0 }
+  - { offset: 0x1232, size: 0x8, addend: 0x0, symName: _jbclient_get_jbroot.dot, symObjAddr: 0x44E8, symBinAddr: 0xC530, symSize: 0x0 }
+  - { offset: 0x1296, size: 0x8, addend: 0x0, symName: _jbclient_get_boot_uuid, symObjAddr: 0x3B4, symBinAddr: 0x5950, symSize: 0x84 }
+  - { offset: 0x12BB, size: 0x8, addend: 0x0, symName: _jbclient_get_boot_uuid.bootUUID, symObjAddr: 0x44F0, symBinAddr: 0xC538, symSize: 0x0 }
+  - { offset: 0x12D0, size: 0x8, addend: 0x0, symName: _jbclient_get_boot_uuid.dot, symObjAddr: 0x4518, symBinAddr: 0xC560, symSize: 0x0 }
+  - { offset: 0x1311, size: 0x8, addend: 0x0, symName: _jbclient_xpc_set_custom_port, symObjAddr: 0x0, symBinAddr: 0x559C, symSize: 0x54 }
+  - { offset: 0x1335, size: 0x8, addend: 0x0, symName: _jbserver_xpc_send_dict, symObjAddr: 0x54, symBinAddr: 0x55F0, symSize: 0x1B8 }
+  - { offset: 0x13CD, size: 0x8, addend: 0x0, symName: _jbserver_xpc_send, symObjAddr: 0x20C, symBinAddr: 0x57A8, symSize: 0x98 }
+  - { offset: 0x14CB, size: 0x8, addend: 0x0, symName: ___jbclient_get_jbroot_block_invoke, symObjAddr: 0x328, symBinAddr: 0x58C4, symSize: 0x8C }
+  - { offset: 0x152B, size: 0x8, addend: 0x0, symName: ___jbclient_get_boot_uuid_block_invoke, symObjAddr: 0x438, symBinAddr: 0x59D4, symSize: 0x8C }
+  - { offset: 0x158B, size: 0x8, addend: 0x0, symName: _can_skip_trusting_file, symObjAddr: 0x4C4, symBinAddr: 0x5A60, symSize: 0x19C }
+  - { offset: 0x15F9, size: 0x8, addend: 0x0, symName: _realafpath, symObjAddr: 0x660, symBinAddr: 0x5BFC, symSize: 0x9C }
+  - { offset: 0x162F, size: 0x8, addend: 0x0, symName: _jbclient_process_checkin, symObjAddr: 0x6FC, symBinAddr: 0x5C98, symSize: 0x1B0 }
+  - { offset: 0x16D5, size: 0x8, addend: 0x0, symName: _jitterdSystemWideIsReachable, symObjAddr: 0x8AC, symBinAddr: 0x5E48, symSize: 0x5C }
+  - { offset: 0x16FF, size: 0x8, addend: 0x0, symName: _jitterdSystemWideMachPort, symObjAddr: 0x908, symBinAddr: 0x5EA4, symSize: 0xB0 }
+  - { offset: 0x1755, size: 0x8, addend: 0x0, symName: _sendLaunchdMessageFallback, symObjAddr: 0x9B8, symBinAddr: 0x5F54, symSize: 0x13C }
+  - { offset: 0x17E6, size: 0x8, addend: 0x0, symName: _sendjitterdMessageSystemWide, symObjAddr: 0xAF4, symBinAddr: 0x6090, symSize: 0xB4 }
+  - { offset: 0x1876, size: 0x8, addend: 0x0, symName: _jbclient_cs_revalidate, symObjAddr: 0xBA8, symBinAddr: 0x6144, symSize: 0x74 }
+  - { offset: 0x18BD, size: 0x8, addend: 0x0, symName: _jbclient_cs_drop_get_task_allow, symObjAddr: 0xC1C, symBinAddr: 0x61B8, symSize: 0x74 }
+  - { offset: 0x1904, size: 0x8, addend: 0x0, symName: _jbclient_patch_spawn, symObjAddr: 0xC90, symBinAddr: 0x622C, symSize: 0xB0 }
+  - { offset: 0x1978, size: 0x8, addend: 0x0, symName: _jbclient_patch_exec_add, symObjAddr: 0xD40, symBinAddr: 0x62DC, symSize: 0xB0 }
+  - { offset: 0x19EC, size: 0x8, addend: 0x0, symName: _jbclient_patch_exec_del, symObjAddr: 0xDF0, symBinAddr: 0x638C, symSize: 0x94 }
+  - { offset: 0x1A51, size: 0x8, addend: 0x0, symName: _jbclient_platform_set_process_debugged, symObjAddr: 0xE84, symBinAddr: 0x6420, symSize: 0xB8 }
+  - { offset: 0x1AC5, size: 0x8, addend: 0x0, symName: _jbclient_watchdog_intercept_userspace_panic, symObjAddr: 0xF3C, symBinAddr: 0x64D8, symSize: 0x9C }
+  - { offset: 0x1B2A, size: 0x8, addend: 0x0, symName: _jbclient_watchdog_get_last_userspace_panic, symObjAddr: 0xFD8, symBinAddr: 0x6574, symSize: 0xAC }
+  - { offset: 0x1B8F, size: 0x8, addend: 0x0, symName: _jbclient_root_get_sysinfo, symObjAddr: 0x1084, symBinAddr: 0x6620, symSize: 0xB8 }
+...

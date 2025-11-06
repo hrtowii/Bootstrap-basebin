@@ -1,4 +1,4 @@
-TARGET := iphone:clang:latest:15.0
+TARGET := iphone:clang:16.5:15.0
 
 THEOS_PACKAGE_SCHEME = roothide
 
@@ -10,7 +10,7 @@ include $(THEOS)/makefiles/common.mk
 LIBRARY_NAME = bootstrap
 
 bootstrap_FILES = $(wildcard *.c *.x *.m *.S) ../bootstrapd/ipc.m ../bootstrapd/libbsd.m
-bootstrap_CFLAGS = -fobjc-arc -Wno-deprecated-declarations -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-value -Wno-format-invalid-specifier
+bootstrap_CFLAGS = -fobjc-arc -Wno-deprecated-declarations -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-value -Wno-format-invalid-specifier -Wno-deprecated-non-prototype
 bootstrap_LDFLAGS = -L./ -ldobby -lc++
 bootstrap_INSTALL_PATH = /basebin
 

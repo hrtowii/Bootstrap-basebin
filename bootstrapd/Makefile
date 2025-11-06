@@ -1,4 +1,4 @@
-TARGET := iphone:clang:latest:15.0
+TARGET := iphone:clang:16.5:15.0
 
 THEOS_PACKAGE_SCHEME = roothide
 
@@ -12,7 +12,7 @@ TOOL_NAME = bootstrapd
 #-fvisibility=hidden 
 
 bootstrapd_FILES = $(wildcard *.c *.m *.mm *.cpp)
-bootstrapd_CFLAGS = -DBOOTSTRAPD -I./ -fobjc-arc -Wno-deprecated-declarations -Wno-unused-variable -Wno-unused-function -Wno-unneeded-internal-declaration
+bootstrapd_CFLAGS = -DBOOTSTRAPD -I./ -fobjc-arc -Wno-deprecated-declarations -Wno-unused-variable -Wno-unused-function -Wno-unneeded-internal-declaration -Wno-deprecated-non-prototype
 bootstrapd_LDFLAGS = -lbsm
 bootstrapd_CODESIGN_FLAGS = -Sentitlements.plist
 bootstrapd_INSTALL_PATH = /basebin/

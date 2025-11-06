@@ -1,0 +1,4 @@
+/Users/ibarahime/dev/Bootstrap/basebin/hooks/launchdhook/.theos/obj/debug/arm64/crashreporter.m.a8a71e81.o: \
+  crashreporter.m /Users/ibarahime/theos/Prefix.pch crashreporter.h
+/Users/ibarahime/theos/Prefix.pch:
+crashreporter.h:

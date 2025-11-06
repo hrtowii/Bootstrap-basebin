@@ -9,7 +9,7 @@ cd "$WORK_DIR"
 TARGET="../Bootstrap/basebin/"
 
 if [ -d "$TARGET" ]; then
-	rm -rf "$TARGET"
+  rm -rf "$TARGET"
 fi
 
 mkdir $TARGET
@@ -28,6 +28,11 @@ cp ./bootstrap/.theos/_/basebin/bootstrap.dylib $TARGET
 cp ./bootstrapd/.theos/_/basebin/bootstrapd $TARGET
 cp ./rebuildapp/.theos/_/basebin/rebuildapp $TARGET
 cp ./rebuildapp/.theos/_/basebin/rebuildapps.sh $TARGET
+cp ./hooks/xpcproxyhook/.theos/obj/debug/xpcproxyhook.dylib $TARGET
+cp ./hooks/launchdhook/.theos/obj/debug/launchdhook.dylib $TARGET
+cp ./hooks/generalhook/.theos/obj/debug/generalhook.dylib $TARGET
+cp ./hooks/jitter/.theos/obj/debug/jitter $TARGET
+cp ./hooks/cfprefsdshim/.theos/obj/debug/cfprefsdshim $TARGET
 
 echo "***** copy finished *****"
 

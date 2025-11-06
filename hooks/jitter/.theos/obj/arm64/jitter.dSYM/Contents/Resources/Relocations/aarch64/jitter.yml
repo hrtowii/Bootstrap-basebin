@@ -1,0 +1,21 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/ibarahime/dev/mineekserotonin/Serotonin/RootHelperSample/launchdshim/launchdhook/jitter/.theos/obj/arm64/jitter'
+relocations:
+  - { offsetInCU: 0x1E, offset: 0x1E, size: 0x8, addend: 0x0, symName: _enableJIT, symObjAddr: 0x0, symBinAddr: 0x100004000, symSize: 0x50 }
+  - { offsetInCU: 0x7F, offset: 0x7F, size: 0x8, addend: 0x0, symName: _enableJIT, symObjAddr: 0x0, symBinAddr: 0x100004000, symSize: 0x50 }
+  - { offsetInCU: 0xCB, offset: 0xCB, size: 0x8, addend: 0x0, symName: _setJetsamEnabled, symObjAddr: 0x50, symBinAddr: 0x100004050, symSize: 0x48 }
+  - { offsetInCU: 0x143, offset: 0x143, size: 0x8, addend: 0x0, symName: _setJetsamEnabled, symObjAddr: 0x50, symBinAddr: 0x100004050, symSize: 0x48 }
+  - { offsetInCU: 0x1A5, offset: 0x1A5, size: 0x8, addend: 0x0, symName: _jitterd_received_message, symObjAddr: 0x98, symBinAddr: 0x100004098, symSize: 0x128 }
+  - { offsetInCU: 0x201, offset: 0x201, size: 0x8, addend: 0x0, symName: _setJetsamEnabled.cold.1, symObjAddr: 0x374, symBinAddr: 0x100004374, symSize: 0x24 }
+  - { offsetInCU: 0x23B, offset: 0x23B, size: 0x8, addend: 0x0, symName: _jitterd_received_message, symObjAddr: 0x98, symBinAddr: 0x100004098, symSize: 0x128 }
+  - { offsetInCU: 0x5C2, offset: 0x5C2, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x1C0, symBinAddr: 0x1000041C0, symSize: 0x16C }
+  - { offsetInCU: 0x76A, offset: 0x76A, size: 0x8, addend: 0x0, symName: ___main_block_invoke, symObjAddr: 0x32C, symBinAddr: 0x10000432C, symSize: 0x1C }
+  - { offsetInCU: 0x79F, offset: 0x79F, size: 0x8, addend: 0x0, symName: _main.cold.1, symObjAddr: 0x398, symBinAddr: 0x100004398, symSize: 0x24 }
+  - { offsetInCU: 0x8BC, offset: 0x8BC, size: 0x8, addend: 0x0, symName: ___main_block_invoke, symObjAddr: 0x32C, symBinAddr: 0x10000432C, symSize: 0x1C }
+  - { offsetInCU: 0x921, offset: 0x921, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s, symObjAddr: 0x348, symBinAddr: 0x100004348, symSize: 0x8 }
+  - { offsetInCU: 0x943, offset: 0x943, size: 0x8, addend: 0x0, symName: ___copy_helper_block_e8_32s, symObjAddr: 0x348, symBinAddr: 0x100004348, symSize: 0x8 }
+  - { offsetInCU: 0x967, offset: 0x967, size: 0x8, addend: 0x0, symName: ___destroy_helper_block_e8_32s, symObjAddr: 0x350, symBinAddr: 0x100004350, symSize: 0x8 }
+  - { offsetInCU: 0x984, offset: 0x984, size: 0x8, addend: 0x0, symName: ___main_block_invoke.7, symObjAddr: 0x358, symBinAddr: 0x100004358, symSize: 0x1C }
+  - { offsetInCU: 0x9E9, offset: 0x9E9, size: 0x8, addend: 0x0, symName: _setJetsamEnabled.cold.1, symObjAddr: 0x374, symBinAddr: 0x100004374, symSize: 0x24 }
+...

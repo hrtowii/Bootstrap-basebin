@@ -1,0 +1,21 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/ibarahime/dev/Bootstrap/basebin/hooks/xpcproxyhook/.theos/obj/debug/arm64/xpcproxyhook.dylib'
+relocations:
+  - { offset: 0x1E, size: 0x8, addend: 0x0, symName: _hooked_csops, symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x9C }
+  - { offset: 0x45, size: 0x8, addend: 0x0, symName: _orig_csops, symBinAddr: 0xC000, symSize: 0x0 }
+  - { offset: 0xBB, size: 0x8, addend: 0x0, symName: _orig_csops_audittoken, symBinAddr: 0xC008, symSize: 0x0 }
+  - { offset: 0x125, size: 0x8, addend: 0x0, symName: _orig_posix_spawnp, symBinAddr: 0xC010, symSize: 0x0 }
+  - { offset: 0x1BD, size: 0x8, addend: 0x0, symName: _hooked_csops, symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x9C }
+  - { offset: 0x21D, size: 0x8, addend: 0x0, symName: _hooked_csops_audittoken, symObjAddr: 0x9C, symBinAddr: 0x409C, symSize: 0xA4 }
+  - { offset: 0x28B, size: 0x8, addend: 0x0, symName: _hooked_posix_spawnp, symObjAddr: 0x140, symBinAddr: 0x4140, symSize: 0x138 }
+  - { offset: 0x2F9, size: 0x8, addend: 0x0, symName: _init, symObjAddr: 0x278, symBinAddr: 0x4278, symSize: 0x74 }
+  - { offset: 0x39F, size: 0x8, addend: 0x0, symName: _rebind_symbols_image, symObjAddr: 0x0, symBinAddr: 0x42EC, symSize: 0x78 }
+  - { offset: 0x3B8, size: 0x8, addend: 0x0, symName: __rebindings_head, symObjAddr: 0x24C8, symBinAddr: 0xC018, symSize: 0x0 }
+  - { offset: 0x86C, size: 0x8, addend: 0x0, symName: _rebind_symbols_image, symObjAddr: 0x0, symBinAddr: 0x42EC, symSize: 0x78 }
+  - { offset: 0x8DA, size: 0x8, addend: 0x0, symName: _prepend_rebindings, symObjAddr: 0x78, symBinAddr: 0x4364, symSize: 0xD8 }
+  - { offset: 0x92C, size: 0x8, addend: 0x0, symName: _rebind_symbols_for_image, symObjAddr: 0x150, symBinAddr: 0x443C, symSize: 0x330 }
+  - { offset: 0xA6C, size: 0x8, addend: 0x0, symName: _rebind_symbols, symObjAddr: 0x480, symBinAddr: 0x476C, symSize: 0xE0 }
+  - { offset: 0xAEE, size: 0x8, addend: 0x0, symName: __rebind_symbols_for_image, symObjAddr: 0x560, symBinAddr: 0x484C, symSize: 0x34 }
+  - { offset: 0xB20, size: 0x8, addend: 0x0, symName: _perform_rebinding_with_section, symObjAddr: 0x594, symBinAddr: 0x4880, symSize: 0x2C8 }
+...
