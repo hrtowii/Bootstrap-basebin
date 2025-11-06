@@ -31,7 +31,7 @@ cp ./rebuildapp/.theos/_/basebin/rebuildapps.sh $TARGET
 cp ./hooks/xpcproxyhook/.theos/obj/debug/xpcproxyhook.dylib $TARGET
 cp ./hooks/launchdhook/.theos/obj/debug/launchdhook.dylib $TARGET
 cp ./hooks/generalhook/.theos/obj/debug/generalhook.dylib $TARGET
-cp ./hooks/jitter/.theos/obj/debug/jitter $TARGET
+cp ./hooks/launchdhook/jitter/.theos/obj/debug/jitter $TARGET
 cp ./hooks/cfprefsdshim/.theos/obj/debug/cfprefsdshim $TARGET
 
 echo "***** copy finished *****"

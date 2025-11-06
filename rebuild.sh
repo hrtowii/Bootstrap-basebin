@@ -66,6 +66,8 @@ echo "[*] Building jitter"
 make -C launchdhook/jitter
 # $(CTBYPASS) -i launchdhook/jitter/.theos/obj/debug/jitter -r -o launchdhook/jitter/jitter
 
+echo "[*] building cfprefsdshim"
+make -C cfprefsdshim
 cd -
 
 echo "**** rebuild successful ****"

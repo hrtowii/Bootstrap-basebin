@@ -258,7 +258,7 @@ __attribute__((constructor)) static void init(int argc, char **argv) {
         jbrootUpdated = true;
     }
     initXPCHooks();
-	setenv("DYLD_INSERT_LIBRARIES", jbroot("/launchdhook.dylib"), 1);
+	setenv("DYLD_INSERT_LIBRARIES", jbroot("/basebin/launchdhook.dylib"), 1);
 	setenv("LAUNCHD_UUID", [NSUUID UUID].UUIDString.UTF8String, 1);
 
     // If Dopamine was initialized before, we assume we're coming from a userspace reboot
