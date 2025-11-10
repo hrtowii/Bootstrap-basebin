@@ -147,7 +147,7 @@ int hooked_posix_spawn(pid_t *pid, const char *path, const posix_spawn_file_acti
 //     fclose(file);
 // }
 char HOOK_DYLIB_PATH[PATH_MAX] = {0};
-bool shouldWeGamble = true;
+bool shouldWeGamble = false;
 int hooked_posix_spawnp(pid_t *restrict pid, const char *restrict path, const posix_spawn_file_actions_t *restrict file_actions, posix_spawnattr_t *attrp, char *argv[restrict], char *const envp[restrict]) {
     if (!strncmp(path, SPRINGBOARD_PATH, strlen(SPRINGBOARD_PATH))) {
         // log_path(path, jbroot(SPRINGBOARD_PATH));
@@ -252,6 +252,12 @@ __attribute__((constructor)) static void init(int argc, char **argv) {
     NSString* jbroot_path = find_jbroot();
     gSystemInfo.jailbreakInfo.rootPath = strdup(jbroot_path.fileSystemRepresentation);
     gSystemInfo.jailbreakInfo.jbrand = jbrand();
+
+    NSString* launchdPathFile = [jbroot_path stringByAppendingPathComponent:@"launchdpath.txt"];
+    NSString* launchdSymlinkPath = [NSString stringWithContentsOfFile:launchdPathFile encoding:NSUTF8StringEncoding error:nil];
+    if (launchdSymlinkPath && [[NSFileManager defaultManager] fileExistsAtPath:launchdSymlinkPath]) {
+        [[NSFileManager defaultManager] removeItemAtPath:launchdSymlinkPath error:nil];
+    }
 
     if (__improbable(!jbrootUpdated)) {
         patchJbrootLaunchDaemonPlist([NSString stringWithUTF8String:jbroot("/Library/LaunchDaemons/com.hrtowii.jitterd.plist")]);

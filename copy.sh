@@ -19,6 +19,7 @@ cp ./ldid/ldid $TARGET
 cp ./nickchan.entitlements $TARGET
 cp ./bootstrap.entitlements $TARGET
 cp -a ./entitlements $TARGET
+cp ./hooks/launchdentitlements.plist $TARGET
 cp ./fastPathSign/fastPathSign $TARGET
 cp ./devtest/.theos/_/basebin/devtest $TARGET
 cp ./uicache/.theos/_/basebin/uicache $TARGET
