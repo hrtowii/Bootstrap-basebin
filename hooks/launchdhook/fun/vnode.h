@@ -6,8 +6,7 @@
 //
 
 #include <stdio.h>
-#include <stdint.h>
-#include <sys/types.h>
+
 //https://github.com/apple-oss-distributions/xnu/blob/xnu-8792.41.9/bsd/sys/mount.h#L293
 #define MNT_RDONLY      0x00000001      /* read only filesystem */
 #define MNT_NOSUID      0x00000008      /* don't honor setuid bits on fs */

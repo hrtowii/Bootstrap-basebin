@@ -6,7 +6,7 @@
 //
 
 #include <stdio.h>
-#include <stdint.h>
+
 extern uint32_t off_p_list_le_prev;
 extern uint32_t off_p_proc_ro;
 extern uint32_t off_p_ppid;

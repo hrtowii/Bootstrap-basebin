@@ -48,7 +48,7 @@ static void __attribute__((__constructor__)) preload()
 	int count=_dyld_image_count();
     for(int i=0; i<count; i++) {
 		const char* path = _dyld_get_image_name(i);
-		NSLog(@"dyldlib=%s", path);
+		// NSLog(@"dyldlib=%s", path);
 		if(strstr(path, "/basebin/bootstrap.dylib")) {
 			found = 1;
 			break;

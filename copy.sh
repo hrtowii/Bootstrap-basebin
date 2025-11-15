@@ -19,7 +19,7 @@ cp ./ldid/ldid $TARGET
 cp ./nickchan.entitlements $TARGET
 cp ./bootstrap.entitlements $TARGET
 cp -a ./entitlements $TARGET
-cp ./hooks/launchdentitlements.plist $TARGET
+cp ./hooks/*.plist $TARGET
 cp ./fastPathSign/fastPathSign $TARGET
 cp ./devtest/.theos/_/basebin/devtest $TARGET
 cp ./uicache/.theos/_/basebin/uicache $TARGET
@@ -32,7 +32,8 @@ cp ./rebuildapp/.theos/_/basebin/rebuildapps.sh $TARGET
 cp ./hooks/xpcproxyhook/.theos/obj/debug/xpcproxyhook.dylib $TARGET
 cp ./hooks/launchdhook/.theos/obj/debug/launchdhook.dylib $TARGET
 cp ./hooks/generalhook/.theos/obj/debug/generalhook.dylib $TARGET
-cp ./hooks/launchdhook/jitter/.theos/obj/debug/jitter $TARGET
+cp ./hooks/launchdhook/jitter/jitterd $TARGET
+cp ./hooks/launchdhook/jitter/jitterd.plist $TARGET
 cp ./hooks/cfprefsdshim/.theos/obj/debug/cfprefsdshim $TARGET
 
 echo "***** copy finished *****"

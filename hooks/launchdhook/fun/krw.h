@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <os/proc.h>
-#include <stdint.h>
 
 uint64_t unsign_kptr(uint64_t pac_kaddr);
 uint64_t kUNSIGN_PTR(uint64_t pac_kaddr);

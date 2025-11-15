@@ -67,68 +67,20 @@ int hooked_csops_audittoken(pid_t pid, unsigned int ops, void * useraddr, size_t
 void change_launchtype(const posix_spawnattr_t *attrp, const char *restrict path) {
     const char *prefixes[] = {
         "/private/preboot",
-        jbroot(@"/").UTF8String,
+        jbroot("/"),
     };
 
     if (__builtin_available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *)) {
         for (size_t i = 0; i < sizeof(prefixes) / sizeof(prefixes[0]); ++i) {
             size_t prefix_len = strlen(prefixes[i]);
             if (strncmp(path, prefixes[i], prefix_len) == 0) {
-//                FILE *file = fopen("/var/mobile/launchd.log", "a");
-                if (/*file &&*/ attrp != 0) {
-//                    char output[1024];
-//                    sprintf(output, "[launchd] setting launch type path %s from %d to 0\n", path, attrp);
-//                    fputs(output, file);
-//                    fclose(file);
+                if (attrp != 0) {
                     posix_spawnattr_set_launch_type_np((posix_spawnattr_t *)attrp, 0); // needs ios 16.0 sdk
                 }
                 break;
             }
         }
     }
-}
-
-#define JB_ROOT_PREFIX ".jbroot-"
-#define JB_RAND_LENGTH  (sizeof(uint64_t)*sizeof(char)*2)
-int is_jbrand_value(uint64_t value)
-{
-   uint8_t check = value>>8 ^ value >> 16 ^ value>>24 ^ value>>32 ^ value>>40 ^ value>>48 ^ value>>56;
-   return check == (uint8_t)value;
-}
-
-int is_jbroot_name(const char* name)
-{
-    if(strlen(name) != (sizeof(JB_ROOT_PREFIX)-1+JB_RAND_LENGTH))
-        return 0;
-    
-    if(strncmp(name, JB_ROOT_PREFIX, sizeof(JB_ROOT_PREFIX)-1) != 0)
-        return 0;
-    
-    char* endp=NULL;
-    uint64_t value = strtoull(name+sizeof(JB_ROOT_PREFIX)-1, &endp, 16);
-    if(!endp || *endp!='\0')
-        return 0;
-    
-    if(!is_jbrand_value(value))
-        return 0;
-    
-    return 1;
-}
-
-NSString* find_jbroot()
-{
-    //jbroot path may change when re-randomize it
-    NSString * jbroot = nil;
-    NSArray *subItems = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/var/containers/Bundle/Application/" error:nil];
-    for (NSString *subItem in subItems) {
-        if (is_jbroot_name(subItem.UTF8String))
-        {
-            NSString* path = [@"/var/containers/Bundle/Application/" stringByAppendingPathComponent:subItem];
-            jbroot = path;
-            break;
-        }
-    }
-    return jbroot;
 }
 
 int hooked_posix_spawn(pid_t *pid, const char *path, const posix_spawn_file_actions_t *file_actions, posix_spawnattr_t *attrp, char *argv[], char *const envp[]) {
@@ -139,44 +91,32 @@ int hooked_posix_spawn(pid_t *pid, const char *path, const posix_spawn_file_acti
     return r;
 }
 
-// void log_path(char* path, char* jbroot_path) {
-//     FILE *file = fopen("/var/mobile/launchd.log", "a");
-//     char output[256];
-//     sprintf(output, "[launchd] changing path %s to %s\n", path, jbroot_path);
-//     fputs(output, file);
-//     fclose(file);
-// }
 char HOOK_DYLIB_PATH[PATH_MAX] = {0};
-bool shouldWeGamble = false;
+int count = 0;
+int count2 = 0;
 int hooked_posix_spawnp(pid_t *restrict pid, const char *restrict path, const posix_spawn_file_actions_t *restrict file_actions, posix_spawnattr_t *attrp, char *argv[restrict], char *const envp[restrict]) {
     if (!strncmp(path, SPRINGBOARD_PATH, strlen(SPRINGBOARD_PATH))) {
         // log_path(path, jbroot(SPRINGBOARD_PATH));
-        path = jbroot(SPRINGBOARD_PATH);
+        // path = jbroot(SPRINGBOARD_PATH);
+        if (count <= 5) {
         argv[0] = (char *)path;
         posix_spawnattr_set_launch_type_np((posix_spawnattr_t *)attrp, 0);
-        return posix_spawnp(pid, path, file_actions, (posix_spawnattr_t *)attrp, argv, envp);
+        count += 1;
+        customLog("springboard retrying %s %d times", path, count);
+        }
     } else if (!strncmp(path, MRUI_PATH, strlen(MRUI_PATH))) {
         // log_path(path, jbroot(MRUI_PATH));
         path = jbroot(MRUI_PATH);
         argv[0] = (char *)path;
         posix_spawnattr_set_launch_type_np((posix_spawnattr_t *)attrp, 0);
     } else if (__probable(!strncmp(path, XPCPROXY_PATH, strlen(XPCPROXY_PATH)))) {
+      if (count <= 50) {
         path = jbroot(XPCPROXY_PATH);
         argv[0] = (char *)path;
         posix_spawnattr_set_launch_type_np((posix_spawnattr_t *)attrp, 0);
-        if(__improbable(shouldWeGamble))
-        {
-            uint64_t kfd = do_kopen(1024, 2, 1, 1, 1000, true);
-            // customLog("successfully gambled with kfd!\n");
-            customLog("slide: 0x%llx\n, kernproc: 0x%llx\n, kerntask: 0x%llx, nchashtbl: 0x%llx, nchashmask: 0x%llx\n", get_kslide(), get_kernproc(), get_kerntask(), gSystemInfo.kernelConstant.nchashtbl, gSystemInfo.kernelConstant.nchashmask);
-            // customLog("reading pid... %d, getpid ret %d", kread32(((struct kfd *)kfd)->info.kaddr.current_proc + 0x60), getpid());
-            // unsandbox2("/usr/lib", jbroot("/usr/lib/libhooker.dylib"));
-            unsandbox2("/usr/lib", jbroot("/generalhooksigned.dylib"));
-            //new "real path"
-            snprintf(HOOK_DYLIB_PATH, sizeof(HOOK_DYLIB_PATH), "/usr/lib/generalhooksigned.dylib");
-            do_kclose();
-            shouldWeGamble = false;
-        }
+        count += 1;
+        customLog("xpcproxy retrying %s %d",path,count2);
+      }
     }
     // } else if (!strncmp(path, MEDIASERVERD_PATH, strlen(MEDIASERVERD_PATH))) {
     //     path = jbroot(MEDIASERVERD_PATH);
@@ -201,15 +141,8 @@ void patchJbrootLaunchDaemonPlist(NSString *plistPath)
 {
 	NSMutableDictionary *plistDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
 	if (plistDict) {
-		NSMutableArray *programArguments = ((NSArray *)plistDict[@"ProgramArguments"]).mutableCopy;
-		if (programArguments.count >= 1) {
-			NSString *pathBefore = programArguments[0];
-			if (![pathBefore hasPrefix:@"/var/containers/Bundle"]) {
-                programArguments[0] = jbroot(pathBefore);
-                plistDict[@"ProgramArguments"] = [programArguments copy];
-                [plistDict writeToFile:plistPath atomically:YES];
-            }
-		}
+    plistDict[@"ProgramArguments"] = jbroot(@"/basebin/jitterd");
+    [plistDict writeToFile:plistPath atomically:YES];
 	}
 }
 
@@ -249,15 +182,8 @@ __attribute__((constructor)) static void init(int argc, char **argv) {
     // crashreporter_start();
     // customLog("launchdhook is running");
     if(gSystemInfo.jailbreakInfo.rootPath) free(gSystemInfo.jailbreakInfo.rootPath);
-    NSString* jbroot_path = find_jbroot();
+    NSString* jbroot_path = jbroot(@"/");
     gSystemInfo.jailbreakInfo.rootPath = strdup(jbroot_path.fileSystemRepresentation);
-    gSystemInfo.jailbreakInfo.jbrand = jbrand();
-
-    NSString* launchdPathFile = [jbroot_path stringByAppendingPathComponent:@"launchdpath.txt"];
-    NSString* launchdSymlinkPath = [NSString stringWithContentsOfFile:launchdPathFile encoding:NSUTF8StringEncoding error:nil];
-    if (launchdSymlinkPath && [[NSFileManager defaultManager] fileExistsAtPath:launchdSymlinkPath]) {
-        [[NSFileManager defaultManager] removeItemAtPath:launchdSymlinkPath error:nil];
-    }
 
     if (__improbable(!jbrootUpdated)) {
         patchJbrootLaunchDaemonPlist([NSString stringWithUTF8String:jbroot("/Library/LaunchDaemons/com.hrtowii.jitterd.plist")]);

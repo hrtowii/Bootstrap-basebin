@@ -64,7 +64,7 @@ make -C xpcproxyhook
 
 echo "[*] Building jitter"
 make -C launchdhook/jitter
-# $(CTBYPASS) -i launchdhook/jitter/.theos/obj/debug/jitter -r -o launchdhook/jitter/jitter
+mv launchdhook/jitter/.theos/obj/debug/jitter launchdhook/jitter/jitterd
 
 echo "[*] building cfprefsdshim"
 make -C cfprefsdshim

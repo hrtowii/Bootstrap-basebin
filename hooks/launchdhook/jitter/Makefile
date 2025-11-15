@@ -10,6 +10,6 @@ jitter_CFLAGS = -fobjc-arc -isystem -Wno-error -O3
 jitter_LDFLAGS = -L./ -lbsm
 jitter_CODESIGN_FLAGS = -Sent.plist
 
-after-package:: ct_bypass -i .theos/obj/debug/jitter -o jitter
+after-package:: ct_bypass -i .theos/obj/debug/jitter -o jitterd
 
 include $(THEOS_MAKE_PATH)/tool.mk

@@ -5,19 +5,17 @@
 #include <xpc/xpc.h>
 #include <stdio.h>
 //#include "fishhook.h"
-// #include <libhooker/libhooker.h> // no ellekit! because we may be in /usr/lib from unsandbox hax
+#include <substrate.h>
 #include <spawn.h>
 #include <limits.h>
 #include <dirent.h>
 #include <stdbool.h>
 #include <errno.h>
 #include <dlfcn.h>
-// #include <roothide.h>
+#include <roothide.h>
 #include <signal.h>
 #include "utils.h"
 #include "codesign.h"
-#include "litehook.h"
-#include "jbroot.h"
 #include "sandbox.h"
 #include "../launchdhook/jbserver/jbclient_xpc.h"
 
@@ -25,7 +23,8 @@
 #define PT_ATTACHEXC 14 /* attach to running process with signal exception */
 #define SYSCALL_CSOPS 0xA9
 #define SYSCALL_CSOPS_AUDITTOKEN 0xAA
-
+#define __probable(x)   __builtin_expect(!!(x), 1)
+#define __improbable(x) __builtin_expect(!!(x), 0)
 bool gFullyDebugged = false;
 
 int ptrace(int request, pid_t pid, caddr_t addr, int data);
@@ -101,38 +100,21 @@ static void overwriteMainNSBundle(NSBundle *newBundle) {
 int csops_hook(pid_t pid, unsigned int ops, void *useraddr, size_t usersize)
 {
 	int rv = syscall(SYSCALL_CSOPS, pid, ops, useraddr, usersize);
-	if (rv != 0) return rv;
-	if (ops == CS_OPS_STATUS) {
-		if (useraddr && usersize == sizeof(uint32_t)) {
-			uint32_t* csflag = (uint32_t *)useraddr;
-			*csflag |= CS_VALID;
-            *csflag |= CS_PLATFORM_BINARY;
-			*csflag &= ~CS_DEBUGGED;
-			// if (pid == getpid() && gFullyDebugged) {
-			// 	*csflag |= CS_DEBUGGED;
-			// }
-		}
-	}
-	return rv;
+	    if (rv != 0) return rv;
+    if (ops == 0) {
+        *((uint32_t *)useraddr) |= 0x4000000;
+    }
+    return rv;
 }
 
 int csops_audittoken_hook(pid_t pid, unsigned int ops, void *useraddr, size_t usersize, audit_token_t *token)
 {
 	int rv = syscall(SYSCALL_CSOPS_AUDITTOKEN, pid, ops, useraddr, usersize, token);
-	if (rv != 0) return rv;
-	if (ops == CS_OPS_STATUS) {
-		if (useraddr && usersize == sizeof(uint32_t)) {
-			uint32_t* csflag = (uint32_t *)useraddr;
-			*csflag |= CS_VALID;
-            *csflag |= CS_PLATFORM_BINARY;
-			*csflag &= ~CS_DEBUGGED;
-			// if (pid == getpid() && gFullyDebugged) {
-			// 	*csflag |= CS_DEBUGGED;
-			// }
-		}
-	}
-	return rv;
-}
+	    if (rv != 0) return rv;
+    if (ops == 0) {
+        *((uint32_t *)useraddr) |= 0x4000000;
+    }
+    return rv;}
 
 void setupAppBundle(const char *fullPath) {
     NSString *bundlePath = [NSString stringWithUTF8String:fullPath];
@@ -166,13 +148,17 @@ void applySandboxExtensions(void)
 }
 
 __attribute__((constructor)) static void init(int argc, char **argv, char *envp[]) {
-    // @autoreleasepool {
-    //     if (argc > 1 && strcmp(argv[1], "--jit") == 0) {
-    //         ptrace(0, 0, 0, 0);
-    //         exit(0);
+    // if (argc > 1 && strcmp(argv[1], "--jit") == 0) {
+    //     ptrace(0, 0, 0, 0);
+    //     exit(0);
+    // } else {
+    //     if (strstr(argv[0], "/usr/libexec/")) {
+    //         NSLog(@"generalhook jitterd %d", getpid());
+    //         jitterd(getpid());
     //     } else {
     //         pid_t pid;
     //         char *modified_argv[] = {argv[0], "--jit", NULL };
+    //         NSLog(@"generalhook: jitting %d %s", &pid, argv[0]);
     //         int ret = posix_spawnp(&pid, argv[0], NULL, NULL, modified_argv, envp);
     //         if (ret == 0) {
     //             waitpid(pid, NULL, WUNTRACED);
@@ -182,19 +168,13 @@ __attribute__((constructor)) static void init(int argc, char **argv, char *envp[
     //         }
     //     }
     // }
-    // jits for me
     int checkinret = jbclient_process_checkin(NULL, NULL, &JB_SandboxExtensions, &gFullyDebugged);
-    // if (checkinret == -1) {
-    //     NSLog(@"generalhook - jbserver no response?");
-    //     goto finish;
-    // } else {
-    //     NSLog(@"generalhook - checkin ret %d", checkinret);
-    // }
+    jitterd(getpid());
     applySandboxExtensions();
-    // crashes here unless you ptrace yourself?!
-    litehook_hook_function(csops, csops_hook);
-	litehook_hook_function(csops_audittoken, csops_audittoken_hook);
-
+	  //  litehook_hook_function(csops, csops_hook);
+	  // litehook_hook_function(csops_audittoken, csops_audittoken_hook);
+    MSHookFunction(csops, csops_hook, 0);
+    MSHookFunction(csops_audittoken, csops_audittoken_hook, 0);
     const char *appPaths[] = {
         "/System/Library/CoreServices/SpringBoard.app/SpringBoard",
         "/Applications/CarPlayWallpaper.app/CarPlayWallpaper",
@@ -206,17 +186,11 @@ __attribute__((constructor)) static void init(int argc, char **argv, char *envp[
         "/usr/libexec/installd",
     };
     for (int i = 0; i < sizeof(appPaths) / sizeof(appPaths[0]); i++) {
-        if (strcmp(argv[0], appPaths[i]) == 0) {
+        if (__improbable(strcmp(argv[0], appPaths[i]) == 0)) {
             setupAppBundle(appPaths[i]);
             break;
         }
     }
     NSLog(@"generalhook - loading tweaks for pid %d", getpid());
-    // dlopen([jbroot(@"/usr/lib/roothideinit.dylib") UTF8String], RTLD_NOW);
-    // dlopen([jbroot(@"/usr/lib/roothidepatch.dylib") UTF8String], RTLD_NOW);
-	const char* oldJBROOT = getenv("JBROOT");
-	setenv("JBROOT", [jbroot(@"/") UTF8String], 1);
-	// dlopen([jbroot(@"/usr/lib/TweakLoader.dylib") UTF8String], RTLD_NOW);
-	if(oldJBROOT) setenv("JBROOT", oldJBROOT, 1); else unsetenv("JBROOT");
-  dlopen(jbroot(@"/basebin/bootstrap.dylib").UTF8String, RTLD_GLOBAL | RTLD_NOW);
+	  dlopen(jbroot("/basebin/bootstrap.dylib"), RTLD_NOW | RTLD_GLOBAL);
 }
